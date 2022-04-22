@@ -1,32 +1,26 @@
-package dev.pmanager.gaffer.model;
+package dev.pmanager.gaffer.dto;
 
 import java.util.Date;
-
-import org.springframework.data.annotation.Id;
 
 import dev.pmanager.gaffer.enums.Priority;
 import dev.pmanager.gaffer.enums.Status;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-public class Task {
+@NoArgsConstructor
+public class TaskDto {
 	
-	@Id
 	private String id;
 	private String title;
 	private String description;
 	private Date startDate;
 	private Date finishDate;
-	private Member assignee;
+	private MemberDto assignee;
 	private Priority priority;
-	private Task precedent;
+	private TaskDto precedent;
 	private Status status;
-	
 
 }

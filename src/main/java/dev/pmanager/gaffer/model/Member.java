@@ -19,7 +19,7 @@ public class Member extends User{
 	
 	private Leader leader;
 	private Team team;
-	private Project assignedProject;
+	private Project project;
 	private Collection<Task> tasks = new HashSet<>();
 
 }
