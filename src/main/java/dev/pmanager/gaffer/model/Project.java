@@ -1,10 +1,10 @@
 package dev.pmanager.gaffer.model;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
+import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import dev.pmanager.gaffer.enums.Status;
@@ -22,12 +22,25 @@ public class Project {
 	
 	@Id
 	private String id;
-	private Date startDate;
-	private Date finishDate;
+	private String title;
+	private LocalDate startDate;
+	private LocalDate finishDate;
 	private Status status;
+	@DBRef
 	private Manager manager;
-	private Leader leader;
-	private Collection<Task> tasks = new HashSet<Task>();
+	@DBRef
+	private List<ComplexTask> tasks;
+	
+	@Override
+	public String toString() {
+		return "Project [id=" + id 
+				+ ", title=" + title
+				+ ", startDate=" + startDate 
+				+ ", finishDate=" + finishDate 
+				+ ", status=" + status
+				+ ", manager=" + manager 
+				+ ", tasks=" + tasks + "]";
+	}
 	
 	
 

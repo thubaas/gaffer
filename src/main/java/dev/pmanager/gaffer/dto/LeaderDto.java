@@ -13,9 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LeaderDto extends UserDto {
 	
-	private ManagerDto manager;
-	private ProjectDto project;
-	private TeamDto team;
-	private Collection<TaskDto> tasks;
+	private String managerId;
+	private String projectId;
+	private String teamId;
+	private Collection<ComplexTaskDto> tasks;
 
 }

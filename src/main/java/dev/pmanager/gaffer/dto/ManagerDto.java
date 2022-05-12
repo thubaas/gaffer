@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ManagerDto extends UserDto {
 	
-	private ProjectDto project;
+	private String projectId;
 
 }

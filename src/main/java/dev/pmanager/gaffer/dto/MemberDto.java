@@ -13,14 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MemberDto extends UserDto {
 	
-//	private String id;
-//	private String name;
-//	private String surname;
-//	private String avatarUrl;
-//	private AccountDto accountDto;
-	private LeaderDto leader;
-	private TeamDto team;
-	private ProjectDto project;
-	private Collection<TaskDto> tasks;
+	private String leaderId;
+	private String teamId;
+	private String projectId;
+	private Collection<ComplexTaskDto> tasks;
 
 }

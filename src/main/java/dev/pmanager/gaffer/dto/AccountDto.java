@@ -1,6 +1,7 @@
 package dev.pmanager.gaffer.dto;
 
-import dev.pmanager.gaffer.enums.Role;
+import java.util.Collection;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,5 @@ public class AccountDto {
 	private String id;
 	private String email;
 	private String password;
-	private Role role;
+	private Collection<String> roles;
 }

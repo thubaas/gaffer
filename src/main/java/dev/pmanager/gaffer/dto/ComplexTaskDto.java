@@ -11,7 +11,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ComplexTaskDto extends TaskDto {
-	private Collection<TaskDto> subTasks; 
+public class ComplexTaskDto {
+	private String id;
+	private String title;
+	private String description;
+	private String startDate;
+	private String finishDate;
+	private String assigneeId;
+	private String priority;
+	private String precedentId;
+	private String status;
+	private Collection<SubtaskDto> subtasks; 
 
 }

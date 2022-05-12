@@ -1,23 +1,24 @@
 package dev.pmanager.gaffer.dto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectDto {
-	
+public class SubtaskDto {
 	private String id;
 	private String title;
+	private String description;
 	private String startDate;
 	private String finishDate;
+	private String assigneeId;
+	private String priority;
+	private String precedentId;
 	private String status;
-	private String managerId;
-	private Collection<ComplexTaskDto> tasks = new ArrayList<>();
+	private String parentId;
 
 }

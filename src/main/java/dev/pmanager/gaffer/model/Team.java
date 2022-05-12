@@ -1,9 +1,10 @@
 package dev.pmanager.gaffer.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +22,22 @@ public class Team {
 	@Id
 	private String id;
 	private String name;
-	private Collection<User> members = new HashSet<>();
+	@DBRef
+	private Project project;
+	@DBRef
+	private Collection<Member> members = new ArrayList<>();
+	@DBRef
 	private Leader leader;
+	
+	@Override
+	public String toString() {
+		return "Team [id=" + id 
+				+ ", name=" + name 
+				+ ", project=" + project 
+				+ ", leader=" + leader + "]";
+	}
+	
+	
+	
 
 }

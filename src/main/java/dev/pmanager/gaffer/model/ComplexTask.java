@@ -1,8 +1,9 @@
 package dev.pmanager.gaffer.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +17,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Document
 public class ComplexTask extends Task {
-	
-	private Collection<Task> subTasks = new ArrayList<>(); 
+	@DBRef
+	private List<Subtask> subtasks = new ArrayList<>();
+
 
 }

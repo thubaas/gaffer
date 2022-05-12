@@ -15,4 +15,11 @@ import lombok.Setter;
 public class Manager extends User{
 	
 	private Project project;
+
+	@Override
+	public String toString() {
+		return "Manager [project=" + project + "]";
+	}
+	
+	
 }
