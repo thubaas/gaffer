@@ -2,6 +2,9 @@ package dev.pmanager.gaffer.service;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import dev.pmanager.gaffer.dto.MemberDto;
 import dev.pmanager.gaffer.dto.TeamDto;
 
@@ -11,7 +14,7 @@ public interface TeamService {
 	TeamDto getTeam(String teamId);
 	List<TeamDto> getTeamsByProject(String projectId);
 	boolean deleteTeam(String teamId);
-	TeamDto addMember( String teamId, MemberDto memberDto);
+	TeamDto addMember( String teamId, MemberDto memberDto) throws AddressException, MessagingException;
 	TeamDto removeMember(String teamId, String memberId);
 	TeamDto updateTeam(TeamDto teamDto);
 	

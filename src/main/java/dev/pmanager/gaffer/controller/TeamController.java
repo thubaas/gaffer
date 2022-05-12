@@ -1,5 +1,8 @@
 package dev.pmanager.gaffer.controller;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -50,7 +53,7 @@ public class TeamController {
 	}
 	
 	@PostMapping("/{teamId}")
-	public ResponseEntity<TeamDto> addMember(@PathVariable String teamId, @RequestBody MemberDto memberDto) {
+	public ResponseEntity<TeamDto> addMember(@PathVariable String teamId, @RequestBody MemberDto memberDto) throws AddressException, MessagingException {
 		log.info("Adding Member : {} to Team ID : {}", memberDto, teamId);
 		TeamDto savedTeam = teamService.addMember(teamId, memberDto);
 		return new ResponseEntity<>(savedTeam, HttpStatus.CREATED);
