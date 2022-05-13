@@ -13,7 +13,6 @@ import lombok.Setter;
 public class MailModel {
 	
 	private final String FROM = "thubaprof@gmail.com";
-	private final String PASSWORD = "Or10N!!!";
 	private String to;
 	private String subject;
 	private String body;

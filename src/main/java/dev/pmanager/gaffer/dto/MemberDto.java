@@ -13,9 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MemberDto extends UserDto {
 	
-	private String leaderId;
 	private String teamId;
-	private String projectId;
+//	private String projectId;
 	private Collection<ComplexTaskDto> tasks;
 
 }

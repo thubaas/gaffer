@@ -10,12 +10,15 @@ import org.springframework.stereotype.Service;
 
 import dev.pmanager.gaffer.dto.MemberDto;
 import dev.pmanager.gaffer.dto.TeamDto;
+import dev.pmanager.gaffer.mapper.MemberMapper;
 import dev.pmanager.gaffer.mapper.TeamMapper;
+import dev.pmanager.gaffer.model.Leader;
 import dev.pmanager.gaffer.model.Member;
 import dev.pmanager.gaffer.model.Project;
 import dev.pmanager.gaffer.model.Team;
 import dev.pmanager.gaffer.notification.EmailSender;
 import dev.pmanager.gaffer.notification.MailModel;
+import dev.pmanager.gaffer.repository.LeaderRepository;
 import dev.pmanager.gaffer.repository.MemberRepository;
 import dev.pmanager.gaffer.repository.ProjectRepository;
 import dev.pmanager.gaffer.repository.TeamRepository;
@@ -29,48 +32,44 @@ public class TeamServiceImpl implements TeamService {
 	
 	private final TeamRepository teamRepository;
 	private final MemberRepository memberRepository;
+	private final LeaderRepository leaderRepository;
 	private final TeamMapper teamMapper;
+	private final MemberMapper memberMapper;
 	private final ProjectRepository projectRepository;
 	private final EmailSender emailSender;
 	
 	@Override
-	public TeamDto addMember(String teamId, MemberDto memberDto) throws AddressException, MessagingException {
-		log.info("Adding Member : {}", memberDto);
-		
-		Team team = teamRepository.findById(teamId).get();
-		Member member = memberRepository.findByEmail(memberDto.getEmail());
-		
-		if(member == null) {
-			log.info("Member not Registered, send Invitation to Email : {}", memberDto.getEmail());
-			MailModel mailModel = new MailModel();
-			mailModel.setTo(memberDto.getEmail());
-			mailModel.setSubject("INVITATION TO JOIN NEW TEAM");
-			mailModel.setBody(
-					"You are being invited to download the "
-					+ "PM Application and join the team using ID " + team.getId()
-					);
-			emailSender.sendMail(mailModel);
-			return teamMapper.map(team);
-		}
-		
-		if(member.getTeam() == null) {
-			member.setTeam(team);
-			Member savedMember = memberRepository.save(member);
-			team.getMembers().add(savedMember);
-			Team savedTeam = teamRepository.save(team);
-			TeamDto mappedTeam = teamMapper.map(savedTeam);
-			return mappedTeam;
-		}	
-		
-		return teamMapper.map(team);
-	}
-
-	@Override
 	public TeamDto addTeam(TeamDto teamDto) {
 		log.info("Creating Team : {}", teamDto);
+		
+		Leader leader = leaderRepository.findById(teamDto.getLeaderId()).get();
+		
 		Team team = teamMapper.map(teamDto);
+		team.setLeader(leader);
+		
 		Team savedTeam = teamRepository.save(team);
+		
+		leader.setTeam(savedTeam);
+		leaderRepository.save(leader);
+		//TODO: Push notification to alert team leader 
 		return teamMapper.map(savedTeam);
+	}
+	
+	@Override
+	public TeamDto addMembers(String teamId, List<MemberDto> memberDtos) {
+		log.info("Adding Members : {}", memberDtos);
+		
+		Team team = teamRepository.findById(teamId).get();
+		List<Member> members = memberDtos.stream().map(mDto -> {
+			Member savedMember = memberRepository.findById(mDto.getId()).get();
+			savedMember.setTeam(team);
+			return memberRepository.save(savedMember);
+		}).collect(Collectors.toList());
+		
+		team.setMembers(members);
+		Team updatedTeam = teamRepository.save(team);
+		//TODO: Push notification to alert team members
+		return teamMapper.map(updatedTeam);
 	}
 
 	@Override

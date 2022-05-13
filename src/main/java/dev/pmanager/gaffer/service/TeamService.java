@@ -14,7 +14,7 @@ public interface TeamService {
 	TeamDto getTeam(String teamId);
 	List<TeamDto> getTeamsByProject(String projectId);
 	boolean deleteTeam(String teamId);
-	TeamDto addMember( String teamId, MemberDto memberDto) throws AddressException, MessagingException;
+	TeamDto addMembers( String teamId, List<MemberDto> members) throws AddressException, MessagingException;
 	TeamDto removeMember(String teamId, String memberId);
 	TeamDto updateTeam(TeamDto teamDto);
 	

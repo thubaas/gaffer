@@ -1,5 +1,7 @@
 package dev.pmanager.gaffer.controller;
 
+import java.util.List;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
@@ -39,7 +41,7 @@ public class TeamController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<TeamDto> createTeam(TeamDto teamDto) {
+	public ResponseEntity<TeamDto> createTeam(@RequestBody TeamDto teamDto) {
 		log.info("Adding Team : {}", teamDto);
 		TeamDto savedTeam = teamService.addTeam(teamDto);
 		return new ResponseEntity<>(savedTeam, HttpStatus.CREATED);
@@ -52,10 +54,10 @@ public class TeamController {
 		return new ResponseEntity<>(savedTeam, HttpStatus.OK);
 	}
 	
-	@PostMapping("/{teamId}")
-	public ResponseEntity<TeamDto> addMember(@PathVariable String teamId, @RequestBody MemberDto memberDto) throws AddressException, MessagingException {
-		log.info("Adding Member : {} to Team ID : {}", memberDto, teamId);
-		TeamDto savedTeam = teamService.addMember(teamId, memberDto);
+	@PostMapping("/{teamId}/members")
+	public ResponseEntity<TeamDto> addMembers(@PathVariable String teamId, @RequestBody List<MemberDto> memberDtos) throws AddressException, MessagingException {
+		log.info("Adding Members");
+		TeamDto savedTeam = teamService.addMembers(teamId, memberDtos);
 		return new ResponseEntity<>(savedTeam, HttpStatus.CREATED);
 	}
 	

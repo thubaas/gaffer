@@ -17,9 +17,8 @@ import lombok.Setter;
 @Document
 public class Member extends User{
 	
-	private Leader leader;
 	private Team team;
-	private Project project;
+//	private Project project;
 	private Collection<ComplexTask> tasks = new ArrayList<>();
 
 }
